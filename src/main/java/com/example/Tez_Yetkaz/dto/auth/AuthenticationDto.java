@@ -12,5 +12,4 @@ public class AuthenticationDto  {
     private String accessToken;
 
     private String refreshToken;
-
 }
