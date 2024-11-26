@@ -36,7 +36,7 @@ public class RestaurantMapper {
         restaurantDto.setCloseTime(restaurant.getCloseTime());
         restaurantDto.setOpenTime(restaurant.getOpenTime());
         restaurantDto.setCategory(restaurant.getCategory());
-//        restaurantDto.setFood(restaurant.getFood());
+        restaurantDto.setFood(restaurant.getFood());
         return restaurantDto;
     }
 

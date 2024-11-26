@@ -25,8 +25,8 @@ public class Restaurant extends AbsEntity {
     private String description;
     private boolean active;
 
-//    @OneToMany
-//    private List<Food> food;
+    @OneToMany(mappedBy = "restaurant")
+    private List<Food> food;
 
     @ManyToOne(optional = false)
     private Category category;
