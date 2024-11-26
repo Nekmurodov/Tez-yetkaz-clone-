@@ -32,6 +32,12 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 "api/v1/auth/**",
+                                "api/v1/category/get-all",
+                                "api/v1/restaurant/get-all",
+                                "api/v1/restaurant/get-all-by-category/",
+                                "api/v1/food/get-all",
+                                "api/v1/food/get-all-by-category/",
+                                "api/v1/food/get-all-by-restaurant/",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
