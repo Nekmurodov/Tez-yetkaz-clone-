@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
+import org.checkerframework.common.aliasing.qual.Unique;
 
 @Entity
 @Getter
@@ -14,6 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class Category extends AbsEntity {
+    @Unique
     private String name;
     private String description;
 

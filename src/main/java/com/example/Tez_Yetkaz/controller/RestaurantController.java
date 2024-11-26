@@ -41,4 +41,9 @@ public class RestaurantController {
         return this.restaurantService.delete(restaurantId);
     }
 
+    @GetMapping("/get-all-by-category/{categoryId}")
+    public ResponseData<?> getAllByCategoryId(@PathVariable UUID categoryId, @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size) {
+        return this.restaurantService.getAllByCategory(categoryId, page, size);
+    }
 }

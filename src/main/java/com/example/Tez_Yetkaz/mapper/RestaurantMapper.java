@@ -27,6 +27,7 @@ public class RestaurantMapper {
 
     public RestaurantDto toDto(Restaurant restaurant) {
         RestaurantDto restaurantDto = new RestaurantDto();
+        restaurantDto.setRestaurantId(restaurant.getId());
         restaurantDto.setName(restaurant.getName());
         restaurantDto.setAddress(restaurant.getAddress());
         restaurantDto.setActive(restaurant.isActive());

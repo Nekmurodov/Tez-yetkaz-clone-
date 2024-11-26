@@ -3,6 +3,7 @@ package com.example.Tez_Yetkaz.controller;
 import com.example.Tez_Yetkaz.dto.category.CreateCategoryDto;
 import com.example.Tez_Yetkaz.response.ResponseData;
 import com.example.Tez_Yetkaz.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +17,12 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @PostMapping("/create")
-    public ResponseData<?> creat(@RequestBody CreateCategoryDto createCategoryDto) {
+    public ResponseData<?> creat(@RequestBody @Valid CreateCategoryDto createCategoryDto) {
         return this.categoryService.create(createCategoryDto);
     }
 
     @PutMapping("update/{categoryId}")
-    public ResponseData<?> update(@PathVariable UUID categoryId, CreateCategoryDto createCategoryDto) {
+    public ResponseData<?> update(@PathVariable UUID categoryId, @Valid CreateCategoryDto createCategoryDto) {
         return this.categoryService.update(categoryId, createCategoryDto);
     }
 

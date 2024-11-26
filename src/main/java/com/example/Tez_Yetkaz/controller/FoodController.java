@@ -41,4 +41,17 @@ public class FoodController {
         return this.foodService.delete(foodId);
     }
 
+    @GetMapping("/get-all-by-restaurant/{restaurantId}")
+    public ResponseData<?> getAllByRestaurantId(@PathVariable UUID restaurantId,
+                                                @RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size) {
+        return this.foodService.getAllByRestaurantId(restaurantId,page,size);
+    }
+
+    @GetMapping("/get-all-by-category/{categoryId}")
+    public ResponseData<?> getAllByCategory(@PathVariable UUID categoryId, @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size) {
+        return this.foodService.getAllByCategoryId(categoryId,page,size);
+    }
+
 }

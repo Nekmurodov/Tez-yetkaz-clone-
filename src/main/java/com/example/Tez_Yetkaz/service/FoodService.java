@@ -99,4 +99,34 @@ public class FoodService {
         this.foodRepository.save(food);
         return ResponseData.successResponse("success");
     }
+
+    public ResponseData<?> getAllByRestaurantId(UUID restaurantId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Food> foodPage = this.foodRepository.findAllByDeletedFalseAndRestaurantId(pageable, restaurantId);
+        if (foodPage.isEmpty()){
+            throw new NotFoundException("Foods not found");
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", foodMapper.toDto(foodPage.toList()));
+        response.put("total", foodPage.getTotalElements());
+        response.put("totalPages", foodPage.getTotalPages());
+
+        return new ResponseData<>(response, true);
+    }
+
+    public ResponseData<?> getAllByCategoryId(UUID categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Food> foodPage = this.foodRepository.findAllByDeletedFalseAndCategoryId(pageable, categoryId);
+        if (foodPage.isEmpty()){
+            throw new NotFoundException("Food not found!");
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", foodMapper.toDto(foodPage.toList()));
+        response.put("total", foodPage.getTotalElements());
+        response.put("totalPages", foodPage.getTotalPages());
+
+        return new ResponseData<>(response, true);
+    }
 }

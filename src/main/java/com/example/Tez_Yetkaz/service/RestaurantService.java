@@ -89,4 +89,19 @@ public class RestaurantService {
 
         return ResponseData.successResponse("success");
     }
+
+    public ResponseData<?> getAllByCategory(UUID categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Restaurant> restaurantPage = this.restaurantRepository.findAllByDeletedFalseAndCategoryId(pageable, categoryId);
+        if (restaurantPage.isEmpty()){
+            throw new NotFoundException("Restaurants not found");
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", restaurantMapper.toDto(restaurantPage.toList()));
+        response.put("total", restaurantPage.getTotalElements());
+        response.put("totalPages", restaurantPage.getTotalPages());
+
+        return ResponseData.successResponse(response);
+    }
 }
