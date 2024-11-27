@@ -15,12 +15,13 @@ import java.util.UUID;
 public class CreateRestaurantDto {
 
     private String name;
-    private String address;
-    private String phone;
+//    private String address;
+//    private String phone;
     private LocalTime openTime;
     private LocalTime closeTime;
     private String description;
     private boolean active;
+    private Double deliverAmount;
 
     private UUID categoryId;
 }

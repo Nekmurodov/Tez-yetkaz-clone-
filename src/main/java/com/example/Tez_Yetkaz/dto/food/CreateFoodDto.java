@@ -15,7 +15,7 @@ public class CreateFoodDto {
 
     private String name;
     private String description;
-    private Integer price;
+    private Double price;
     private boolean active;
     private UUID restaurantId;
 

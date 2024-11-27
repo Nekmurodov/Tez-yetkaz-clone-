@@ -1,5 +1,6 @@
 package com.example.Tez_Yetkaz.dto.restaurant;
 
+import com.example.Tez_Yetkaz.dto.food.FoodDto;
 import com.example.Tez_Yetkaz.entity.fr.Category;
 import com.example.Tez_Yetkaz.entity.fr.Food;
 import lombok.AllArgsConstructor;
@@ -19,14 +20,15 @@ public class RestaurantDto {
 
     private UUID restaurantId;
     private String name;
-    private String address;
-    private String phone;
+//    private String address;
+//    private String phone;
     private LocalTime openTime;
     private LocalTime closeTime;
     private String description;
     private boolean active;
+    private Double deliverAmount;
 
-    private List<Food> food;
+    private List<FoodDto> food;
 
     private Category category;
 }

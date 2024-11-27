@@ -13,15 +13,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RestaurantMapper {
 
+    private final FoodMapper foodMapper;
+
     public Restaurant toEntity(CreateRestaurantDto createRestaurantDto) {
         Restaurant restaurant = new Restaurant();
         restaurant.setName(createRestaurantDto.getName());
-        restaurant.setAddress(createRestaurantDto.getAddress());
+//        restaurant.setAddress(createRestaurantDto.getAddress());
         restaurant.setActive(createRestaurantDto.isActive());
         restaurant.setDescription(createRestaurantDto.getDescription());
-        restaurant.setPhone(createRestaurantDto.getPhone());
+//        restaurant.setPhone(createRestaurantDto.getPhone());
         restaurant.setCloseTime(createRestaurantDto.getCloseTime());
         restaurant.setOpenTime(createRestaurantDto.getOpenTime());
+        restaurant.setDeliverAmount(createRestaurantDto.getDeliverAmount());
         return restaurant;
     }
 
@@ -29,14 +32,15 @@ public class RestaurantMapper {
         RestaurantDto restaurantDto = new RestaurantDto();
         restaurantDto.setRestaurantId(restaurant.getId());
         restaurantDto.setName(restaurant.getName());
-        restaurantDto.setAddress(restaurant.getAddress());
+//        restaurantDto.setAddress(restaurant.getAddress());
         restaurantDto.setActive(restaurant.isActive());
         restaurantDto.setDescription(restaurant.getDescription());
-        restaurantDto.setPhone(restaurant.getPhone());
+//        restaurantDto.setPhone(restaurant.getPhone());
         restaurantDto.setCloseTime(restaurant.getCloseTime());
         restaurantDto.setOpenTime(restaurant.getOpenTime());
         restaurantDto.setCategory(restaurant.getCategory());
-        restaurantDto.setFood(restaurant.getFood());
+        restaurantDto.setFood(this.foodMapper.toDto(restaurant.getFood()));
+        restaurantDto.setDeliverAmount(restaurant.getDeliverAmount());
         return restaurantDto;
     }
 
@@ -44,21 +48,24 @@ public class RestaurantMapper {
         if (restaurantDto.getName() != null) {
             restaurant.setName(restaurantDto.getName());
         }
-        if (restaurantDto.getAddress() != null) {
-            restaurant.setAddress(restaurantDto.getAddress());
-        }
+//        if (restaurantDto.getAddress() != null) {
+//            restaurant.setAddress(restaurantDto.getAddress());
+//        }
         restaurant.setActive(restaurantDto.isActive());
         if (restaurantDto.getDescription() != null) {
             restaurant.setDescription(restaurantDto.getDescription());
         }
-        if (restaurantDto.getPhone() != null) {
-            restaurant.setPhone(restaurantDto.getPhone());
-        }
+//        if (restaurantDto.getPhone() != null) {
+//            restaurant.setPhone(restaurantDto.getPhone());
+//        }
         if (restaurantDto.getCloseTime() != null) {
             restaurant.setCloseTime(restaurantDto.getCloseTime());
         }
         if (restaurantDto.getOpenTime() != null) {
             restaurant.setOpenTime(restaurantDto.getOpenTime());
+        }
+        if (restaurantDto.getDeliverAmount() != null) {
+            restaurant.setDeliverAmount(restaurantDto.getDeliverAmount());
         }
         return restaurant;
     }

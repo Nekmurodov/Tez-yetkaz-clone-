@@ -3,6 +3,7 @@ package com.example.Tez_Yetkaz.service;
 import com.example.Tez_Yetkaz.dto.restaurant.CreateRestaurantDto;
 import com.example.Tez_Yetkaz.entity.fr.Category;
 import com.example.Tez_Yetkaz.entity.fr.Restaurant;
+import com.example.Tez_Yetkaz.enums.CategoryType;
 import com.example.Tez_Yetkaz.exception.NotFoundException;
 import com.example.Tez_Yetkaz.mapper.RestaurantMapper;
 import com.example.Tez_Yetkaz.repository.CategoryRepository;
@@ -28,7 +29,8 @@ public class RestaurantService {
     private final CategoryRepository categoryRepository;
 
     public ResponseData<?> create(CreateRestaurantDto createRestaurantDto) {
-        Optional<Category> category = categoryRepository.findByIdAndDeletedFalse(createRestaurantDto.getCategoryId());
+        Optional<Category> category = categoryRepository.
+                findByIdAndDeletedFalseAndCategoryType(createRestaurantDto.getCategoryId(), CategoryType.RESTAURANT);
         if (category.isEmpty()){
             throw new NotFoundException("Category not found");
         }
@@ -43,7 +45,8 @@ public class RestaurantService {
         if (restaurantOptional.isEmpty()){
             throw new NotFoundException("Restaurant not found");
         }
-        Optional<Category> category = categoryRepository.findByIdAndDeletedFalse(createRestaurantDto.getCategoryId());
+        Optional<Category> category = categoryRepository.
+                findByIdAndDeletedFalseAndCategoryType(createRestaurantDto.getCategoryId(), CategoryType.RESTAURANT);
         if (category.isEmpty()){
             throw new NotFoundException("Category not found");
         }
