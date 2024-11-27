@@ -16,7 +16,7 @@ public class Food extends AbsEntity {
 
     private String name;
     private String description;
-    private Integer price;
+    private Double price;
     private boolean active;
 
     @ManyToOne
