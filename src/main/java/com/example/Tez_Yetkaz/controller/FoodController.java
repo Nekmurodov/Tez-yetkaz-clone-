@@ -49,8 +49,9 @@ public class FoodController {
     }
 
     @GetMapping("/get-all-by-category/{categoryId}")
-    public ResponseData<?> getAllByCategory(@PathVariable UUID categoryId, @RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "10") int size) {
+    public ResponseData<?> getAllByCategory(@PathVariable UUID categoryId,
+                                            @RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size) {
         return this.foodService.getAllByCategoryId(categoryId,page,size);
     }
 
