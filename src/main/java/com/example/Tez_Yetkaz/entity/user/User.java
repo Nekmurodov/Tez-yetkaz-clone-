@@ -5,6 +5,7 @@ import com.example.Tez_Yetkaz.enums.Permissions;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.checkerframework.common.aliasing.qual.Unique;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,7 +28,9 @@ public class User extends AbsEntity implements UserDetails {
     private String password;
     private String firstName;
     private String lastName;
+    @Unique
     private String phoneNumber;
+    @Unique
     private String email;
     private Date birthDate;
     private Boolean gender;

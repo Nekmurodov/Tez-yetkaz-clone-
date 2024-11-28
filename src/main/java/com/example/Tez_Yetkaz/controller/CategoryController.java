@@ -36,6 +36,16 @@ public class CategoryController {
         return this.categoryService.getAll();
     }
 
+    @GetMapping("/get-all-by-food")
+    public ResponseData<?> getAllByFood() {
+        return this.categoryService.getAllByFood();
+    }
+
+    @GetMapping("/get-all-by-restaurant")
+    public ResponseData<?> getAllByRestaurant() {
+        return this.categoryService.getAllByRestaurant();
+    }
+
     @DeleteMapping("delete/{categoryId}")
     public ResponseData<?> delete(@PathVariable UUID categoryId) {
         return this.categoryService.delete(categoryId);

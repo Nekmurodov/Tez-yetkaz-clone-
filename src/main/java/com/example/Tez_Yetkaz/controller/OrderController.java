@@ -20,9 +20,14 @@ public class OrderController {
         return this.orderService.create(createOrderDto);
     }
 
-    @PutMapping("update/{orderId}")
-    public ResponseData<?> update(@PathVariable UUID orderId, CreateOrderDto createOrderDto) {
-        return this.orderService.update(orderId, createOrderDto);
+    @PutMapping("update-status/{orderId}")
+    public ResponseData<?> updateStatus(@PathVariable UUID orderId, boolean status) {
+        return this.orderService.updateStatus(orderId, status);
+    }
+
+    @PutMapping("update-deliver/{orderId}")
+    public ResponseData<?> updateDeliver(@PathVariable UUID orderId, boolean status) {
+        return this.orderService.updateDeliver(orderId, status);
     }
 
     @GetMapping("get/{orderId}")
@@ -34,6 +39,18 @@ public class OrderController {
     public ResponseData<?> getAll(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size) {
         return this.orderService.getAll(page,size);
+    }
+
+    @GetMapping("/get-all-by-status")
+    public ResponseData<?> getAllByStatus(@RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size) {
+        return this.orderService.getAllByStatus(page,size);
+    }
+
+    @GetMapping("/get-all-by-deliver")
+    public ResponseData<?> getAllByDeliver(@RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size) {
+        return this.orderService.getAllByDeliver(page,size);
     }
 
     @DeleteMapping("delete/{orderId}")
