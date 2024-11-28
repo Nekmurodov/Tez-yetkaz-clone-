@@ -2,6 +2,7 @@ package com.example.Tez_Yetkaz.service;
 
 import com.example.Tez_Yetkaz.dto.category.CreateCategoryDto;
 import com.example.Tez_Yetkaz.entity.fr.Category;
+import com.example.Tez_Yetkaz.enums.CategoryType;
 import com.example.Tez_Yetkaz.exception.NotFoundException;
 import com.example.Tez_Yetkaz.mapper.CategoryMapper;
 import com.example.Tez_Yetkaz.repository.CategoryRepository;
@@ -46,6 +47,16 @@ public class CategoryService {
 
     public ResponseData<?> getAll() {
         List<Category> categoryList = this.categoryRepository.findAllByDeletedFalse();
+        return ResponseData.successResponse(this.categoryMapper.toDto(categoryList));
+    }
+
+    public ResponseData<?> getAllByFood() {
+        List<Category> categoryList = this.categoryRepository.findAllByDeletedFalseAndCategoryType(CategoryType.FOOD);
+        return ResponseData.successResponse(this.categoryMapper.toDto(categoryList));
+    }
+
+    public ResponseData<?> getAllByRestaurant() {
+        List<Category> categoryList = this.categoryRepository.findAllByDeletedFalseAndCategoryType(CategoryType.RESTAURANT);
         return ResponseData.successResponse(this.categoryMapper.toDto(categoryList));
     }
 

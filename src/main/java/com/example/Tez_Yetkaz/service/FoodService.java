@@ -1,6 +1,7 @@
 package com.example.Tez_Yetkaz.service;
 
 import com.example.Tez_Yetkaz.dto.food.CreateFoodDto;
+import com.example.Tez_Yetkaz.entity.fr.Attachment;
 import com.example.Tez_Yetkaz.entity.fr.Category;
 import com.example.Tez_Yetkaz.entity.fr.Food;
 import com.example.Tez_Yetkaz.entity.fr.Restaurant;
@@ -16,7 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -30,8 +33,9 @@ public class FoodService {
     private final FoodMapper foodMapper;
     private final CategoryRepository categoryRepository;
     private final RestaurantRepository restaurantRepository;
+    private  final FileService fileService;
 
-    public ResponseData<?> create(CreateFoodDto createFoodDto) {
+    public ResponseData<?> create(CreateFoodDto createFoodDto, MultipartFile multipartFile) throws IOException {
         Optional<Category> category = categoryRepository.findByIdAndDeletedFalseAndCategoryType(createFoodDto.getCategoryId(), CategoryType.FOOD);
         if (category.isEmpty()){
             throw new NotFoundException("Category not found");
@@ -40,14 +44,21 @@ public class FoodService {
         if (restaurant.isEmpty()){
             throw new NotFoundException("Restaurant not found");
         }
+        Attachment attachment = this.fileService.saved(multipartFile);
+        if (attachment == null){
+            throw new NotFoundException("Attachment not found");
+        }
+
         Food food = this.foodMapper.toEntity(createFoodDto);
         food.setCategory(category.get());
         food.setRestaurant(restaurant.get());
+        food.setAttachment(attachment);
+
         this.foodRepository.save(food);
         return ResponseData.successResponse(this.foodMapper.toDto(food));
     }
 
-    public ResponseData<?> update(UUID foodId, CreateFoodDto createFoodDto) {
+    public ResponseData<?> update(UUID foodId, CreateFoodDto createFoodDto, MultipartFile multipartFile) throws IOException {
         Optional<Food> foodOptional = this.foodRepository.findByIdAndDeletedFalse(foodId);
         if (foodOptional.isEmpty()){
             throw new NotFoundException("Food not found");
@@ -63,6 +74,13 @@ public class FoodService {
         Food food = this.foodMapper.toUpdateEntity(foodOptional.get(), createFoodDto);
         food.setCategory(category.get());
         food.setRestaurant(restaurant.get());
+        if (!multipartFile.isEmpty() && fileService.deleteFile(food.getAttachment().getId())){
+            Attachment attachment = this.fileService.saved(multipartFile);
+            if (attachment == null){
+                throw new NotFoundException("Attachment not found");
+            }
+            food.setAttachment(attachment);
+        }
         this.foodRepository.save(food);
         return ResponseData.successResponse(this.foodMapper.toDto(food));
     }

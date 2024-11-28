@@ -38,8 +38,8 @@ public class RestaurantMapper {
 //        restaurantDto.setPhone(restaurant.getPhone());
         restaurantDto.setCloseTime(restaurant.getCloseTime());
         restaurantDto.setOpenTime(restaurant.getOpenTime());
-        restaurantDto.setCategory(restaurant.getCategory());
-        restaurantDto.setFood(this.foodMapper.toDto(restaurant.getFood()));
+//        restaurantDto.setCategory(restaurant.getCategory());
+//        restaurantDto.setFood(this.foodMapper.toDto(restaurant.getFood()));
         restaurantDto.setDeliverAmount(restaurant.getDeliverAmount());
         return restaurantDto;
     }

@@ -28,7 +28,7 @@ public class RestaurantDto {
     private boolean active;
     private Double deliverAmount;
 
-    private List<FoodDto> food;
+//    private List<FoodDto> food;
 
-    private Category category;
+//    private Category category;
 }
