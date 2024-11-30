@@ -1,5 +1,6 @@
 package com.example.Tez_Yetkaz.service;
 
+import com.example.Tez_Yetkaz.dto.AttachmentDto;
 import com.example.Tez_Yetkaz.entity.fr.Attachment;
 import com.example.Tez_Yetkaz.entity.fr.AttachmentContent;
 import com.example.Tez_Yetkaz.exception.NotFoundException;
@@ -59,7 +60,14 @@ public class FileService {
         attachmentContent.setAttachment(saved);
         attachmentContentRepository.save(attachmentContent);
 
-        return ResponseData.successResponse("success");
+        AttachmentDto attachmentDto = new AttachmentDto();
+        attachmentDto.setId(saved.getId());
+        attachmentDto.setContentType(saved.getContentType());
+        attachmentDto.setFileOriginalName(saved.getFileOriginalName());
+        attachmentDto.setSize(saved.getSize());
+        attachmentDto.setName(saved.getName());
+
+        return ResponseData.successResponse(attachmentDto);
 
     }
 
