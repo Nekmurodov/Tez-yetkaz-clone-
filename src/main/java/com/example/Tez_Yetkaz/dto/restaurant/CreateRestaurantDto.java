@@ -1,9 +1,6 @@
 package com.example.Tez_Yetkaz.dto.restaurant;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalTime;
 import java.util.UUID;
@@ -14,6 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CreateRestaurantDto {
 
+    @NonNull
     private String name;
 //    private String address;
 //    private String phone;
@@ -23,5 +21,8 @@ public class CreateRestaurantDto {
     private boolean active;
     private Double deliverAmount;
 
+    private UUID attachmentId;
+
+    @NonNull
     private UUID categoryId;
 }

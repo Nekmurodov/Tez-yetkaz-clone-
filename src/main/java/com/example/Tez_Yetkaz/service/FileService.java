@@ -5,6 +5,7 @@ import com.example.Tez_Yetkaz.entity.fr.AttachmentContent;
 import com.example.Tez_Yetkaz.exception.NotFoundException;
 import com.example.Tez_Yetkaz.repository.AttachmentContentRepository;
 import com.example.Tez_Yetkaz.repository.AttachmentRepository;
+import com.example.Tez_Yetkaz.response.ResponseData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,7 @@ public class FileService {
     }
 
     @Transactional
-    public Attachment saved(MultipartFile multipartFile) throws IOException {
+    public ResponseData<?> savedFile(MultipartFile multipartFile) throws IOException {
         AttachmentContent attachmentContent = new AttachmentContent();
 
         if (!isValidFile(multipartFile)) {
@@ -58,18 +59,28 @@ public class FileService {
         attachmentContent.setAttachment(saved);
         attachmentContentRepository.save(attachmentContent);
 
-        return saved;
+        return ResponseData.successResponse("success");
 
     }
 
+    public ResponseData<Attachment> downloadFile(UUID fileId) {
+        Optional<Attachment> optionalAttachment = fileRepository.findById(fileId);
+        if (optionalAttachment.isEmpty()) {
+            throw new NotFoundException("file not found ");
+        }
+        return ResponseData.successResponse(optionalAttachment.get());
+    }
 
-//    public ResponseData<Attachment> downloadFile(UUID fileId) {
-//        Optional<Attachment> optionalAttachment = fileRepository.findById(fileId);
-//        if (optionalAttachment.isEmpty()) {
-//            throw new NotFoundException("file not found ");
-//        }
-//        return ResponseData.successResponse(optionalAttachment.get());
-//    }
+    public ResponseData<?> deletedFile(UUID fileId) {
+        Optional<Attachment> optionalAttachment = fileRepository.findById(fileId);
+        if (optionalAttachment.isEmpty()) {
+            return new ResponseData<>("file not found", false);
+        }
+        Attachment attachment = optionalAttachment.get();
+        fileRepository.deleteById(attachment.getId());
+
+        return ResponseData.successResponse("file successfully deleted");
+    }
 
     public boolean deleteFile(UUID fileId) {
         Optional<Attachment> optionalAttachment = fileRepository.findById(fileId);

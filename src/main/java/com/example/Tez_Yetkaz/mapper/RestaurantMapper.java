@@ -13,8 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RestaurantMapper {
 
-    private final FoodMapper foodMapper;
-
     public Restaurant toEntity(CreateRestaurantDto createRestaurantDto) {
         Restaurant restaurant = new Restaurant();
         restaurant.setName(createRestaurantDto.getName());
@@ -41,6 +39,7 @@ public class RestaurantMapper {
 //        restaurantDto.setCategory(restaurant.getCategory());
 //        restaurantDto.setFood(this.foodMapper.toDto(restaurant.getFood()));
         restaurantDto.setDeliverAmount(restaurant.getDeliverAmount());
+        restaurantDto.setAttachmentId(restaurant.getAttachment().getId());
         return restaurantDto;
     }
 

@@ -4,12 +4,8 @@ import com.example.Tez_Yetkaz.dto.restaurant.CreateRestaurantDto;
 import com.example.Tez_Yetkaz.response.ResponseData;
 import com.example.Tez_Yetkaz.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.UUID;
 
 @RestController
@@ -19,18 +15,15 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseData<?> creat(@RequestBody CreateRestaurantDto createRestaurantDto,
-                                 @Validated @RequestParam("file") MultipartFile multipartFile) throws IOException {
-        return this.restaurantService.create(createRestaurantDto, multipartFile);
+    @PostMapping(value = "/create")
+    public ResponseData<?> creat(@RequestBody CreateRestaurantDto createRestaurantDto) {
+        return this.restaurantService.create(createRestaurantDto);
     }
 
-    @PutMapping(value = "update/{restaurantId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseData<?> update(@PathVariable UUID restaurantId, CreateRestaurantDto createRestaurantDto,
-                                  @Validated @RequestParam("file") MultipartFile multipartFile) throws IOException {
-        return this.restaurantService.update(restaurantId, createRestaurantDto, multipartFile);
+    @PutMapping(value = "update/{restaurantId}")
+    public ResponseData<?> update( @PathVariable UUID restaurantId,
+                                   @RequestPart("data") CreateRestaurantDto createRestaurantDto) {
+        return this.restaurantService.update(restaurantId, createRestaurantDto);
     }
 
     @GetMapping("get/{restaurantId}")
@@ -50,8 +43,9 @@ public class RestaurantController {
     }
 
     @GetMapping("/get-all-by-category/{categoryId}")
-    public ResponseData<?> getAllByCategoryId(@PathVariable UUID categoryId, @RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "10") int size) {
+    public ResponseData<?> getAllByCategoryId(@PathVariable UUID categoryId,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size) {
         return this.restaurantService.getAllByCategory(categoryId, page, size);
     }
 }

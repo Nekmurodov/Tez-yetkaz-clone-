@@ -4,10 +4,7 @@ import com.example.Tez_Yetkaz.dto.food.CreateFoodDto;
 import com.example.Tez_Yetkaz.response.ResponseData;
 import com.example.Tez_Yetkaz.service.FoodService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -18,18 +15,14 @@ public class FoodController {
 
     private final FoodService foodService;
 
-    @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseData<?> creat(@RequestBody CreateFoodDto createFoodDto,
-                                 @Validated @RequestParam("file") MultipartFile multipartFile) {
-        return this.foodService.create(createFoodDto, multipartFile);
+    @PostMapping(value = "/create")
+    public ResponseData<?> creat(@RequestBody CreateFoodDto createFoodDto) {
+        return this.foodService.create(createFoodDto);
     }
 
-    @PutMapping(value = "update/{foodId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseData<?> update(@PathVariable UUID foodId, CreateFoodDto createFoodDto,
-                                  @Validated @RequestParam("file") MultipartFile multipartFile) {
-        return this.foodService.update(foodId, createFoodDto, multipartFile);
+    @PutMapping(value = "update/{foodId}")
+    public ResponseData<?> update(@PathVariable UUID foodId, CreateFoodDto createFoodDto) {
+        return this.foodService.update(foodId, createFoodDto);
     }
 
     @GetMapping("get/{foodId}")

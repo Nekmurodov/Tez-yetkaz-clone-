@@ -28,6 +28,8 @@ public class RestaurantDto {
     private boolean active;
     private Double deliverAmount;
 
+    private UUID attachmentId;
+
 //    private List<FoodDto> food;
 
 //    private Category category;
