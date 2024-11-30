@@ -39,7 +39,7 @@ public class RestaurantMapper {
 //        restaurantDto.setCategory(restaurant.getCategory());
 //        restaurantDto.setFood(this.foodMapper.toDto(restaurant.getFood()));
         restaurantDto.setDeliverAmount(restaurant.getDeliverAmount());
-        restaurantDto.setAttachmentId(restaurant.getAttachment().getId());
+        restaurantDto.setAttachmentId(restaurant.getAttachment());
         return restaurantDto;
     }
 

@@ -31,7 +31,7 @@ public class FoodMapper {
         foodDto.setActive(food.isActive());
         foodDto.setCategory(food.getCategory());
         foodDto.setRestaurantId(food.getRestaurant().getId());
-        foodDto.setAttachmentId(food.getAttachment().getId());
+        foodDto.setAttachmentId(food.getAttachment());
         return foodDto;
     }
 
