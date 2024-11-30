@@ -21,5 +21,7 @@ public class FoodDto {
     private boolean active;
     private UUID restaurantId;
 
+    private UUID attachmentId;
+
     private Category category;
 }

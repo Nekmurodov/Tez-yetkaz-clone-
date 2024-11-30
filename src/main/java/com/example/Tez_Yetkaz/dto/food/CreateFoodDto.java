@@ -19,5 +19,8 @@ public class CreateFoodDto {
     private boolean active;
     private UUID restaurantId;
 
+    private UUID attachmentId;
+
+
     private UUID categoryId;
 }
