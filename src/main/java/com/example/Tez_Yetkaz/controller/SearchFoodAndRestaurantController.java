@@ -20,9 +20,9 @@ public class SearchFoodAndRestaurantController {
         return this.searchFoodAndRestaurantService.searchFoodByName(foodName);
     }
 
-    @GetMapping("get/{foodRestaurant}")
-    public ResponseData<?> searchRestaurant(@PathVariable String foodRestaurant) {
-        return this.searchFoodAndRestaurantService.searchRestaurantByName(foodRestaurant);
+    @GetMapping("get/{restaurantName}")
+    public ResponseData<?> searchRestaurant(@PathVariable String restaurantName) {
+        return this.searchFoodAndRestaurantService.searchRestaurantByName(restaurantName);
     }
 
 }
