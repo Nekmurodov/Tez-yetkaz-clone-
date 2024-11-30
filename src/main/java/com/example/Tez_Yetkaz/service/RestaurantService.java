@@ -44,7 +44,7 @@ public class RestaurantService {
         }
         Restaurant restaurant = this.restaurantMapper.toEntity(createRestaurantDto);
         restaurant.setCategory(category.get());
-        restaurant.setAttachment(attachment.get());
+        restaurant.setAttachment(createRestaurantDto.getAttachmentId());
         this.restaurantRepository.save(restaurant);
         return ResponseData.successResponse(this.restaurantMapper.toDto(restaurant));
     }
@@ -65,11 +65,11 @@ public class RestaurantService {
         }
         Restaurant restaurant = this.restaurantMapper.toUpdateEntity(restaurantOptional.get(), createRestaurantDto);
         restaurant.setCategory(category.get());
-        if (restaurantOptional.get().getAttachment().getId() == null) {
-            restaurant.setAttachment(attachment.get());
+        if (restaurantOptional.get().getAttachment() == null) {
+            restaurant.setAttachment(createRestaurantDto.getAttachmentId());
         }
-        else if (createRestaurantDto.getAttachmentId() !=null && fileService.deleteFile(restaurantOptional.get().getAttachment().getId())){
-            restaurant.setAttachment(attachment.get());
+        else if (createRestaurantDto.getAttachmentId() !=null && fileService.deleteFile(restaurantOptional.get().getAttachment())){
+            restaurant.setAttachment(createRestaurantDto.getAttachmentId());
         }
         this.restaurantRepository.save(restaurant);
 

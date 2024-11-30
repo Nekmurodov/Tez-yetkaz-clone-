@@ -3,8 +3,9 @@ package com.example.Tez_Yetkaz.entity.fr;
 import com.example.Tez_Yetkaz.entity.AbsEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import lombok.*;
+
+import java.util.UUID;
 
 
 @Entity
@@ -20,8 +21,7 @@ public class Food extends AbsEntity {
     private Double price;
     private boolean active;
 
-    @OneToOne
-    private Attachment attachment;
+    private UUID attachment;
 
     @ManyToOne
     private Restaurant restaurant;

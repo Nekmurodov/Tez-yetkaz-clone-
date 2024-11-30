@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -23,8 +24,7 @@ public class Restaurant extends AbsEntity {
     private boolean active;
     private Double deliverAmount;
 
-    @OneToOne
-    private Attachment attachment;
+    private UUID attachment;
 
 //    @OneToMany(mappedBy = "restaurant")
 //    private List<Food> food;
