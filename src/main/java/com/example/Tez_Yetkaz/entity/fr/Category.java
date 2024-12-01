@@ -8,6 +8,8 @@ import jakarta.persistence.Enumerated;
 import lombok.*;
 import org.checkerframework.common.aliasing.qual.Unique;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -18,6 +20,8 @@ public class Category extends AbsEntity {
     @Unique
     private String name;
     private String description;
+
+    private UUID attachmentId;
 
     @Enumerated(EnumType.STRING)
     private CategoryType categoryType;

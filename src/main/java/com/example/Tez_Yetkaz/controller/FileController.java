@@ -44,6 +44,17 @@ public class FileController {
                 .body(new ByteArrayResource(attachmentContent.getMainContent()));
     }
 
+    @GetMapping("/file-show/{fileId}")
+    public ResponseEntity<ByteArrayResource> showFile(@PathVariable UUID fileId) {
+        ResponseData<Attachment> responseData = fileService.downloadFile(fileId);
+        Attachment content = responseData.getData();
+        AttachmentContent attachmentContent = content.getAttachmentContent();
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(content.getContentType())) // Fayl turi (image/jpeg, image/png, va hokazo)
+                .body(new ByteArrayResource(attachmentContent.getMainContent())); // Asosiy kontentni jo'natadi
+    }
+
     @DeleteMapping("/delete-images{fileId}")
     public ResponseData<?> deleteFile(@PathVariable UUID fileId) {
         return this.fileService.deletedFile(fileId);

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.checkerframework.common.aliasing.qual.Unique;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,6 +20,8 @@ public class CreateCategoryDto {
     @Unique
     private String name;
     private String description;
+
+    private UUID attachmentId;
 
     @NotNull
     private CategoryType categoryType;

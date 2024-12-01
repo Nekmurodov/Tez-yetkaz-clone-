@@ -27,6 +27,7 @@ public class CategoryMapper {
         categoryDto.setName(category.getName());
         categoryDto.setDescription(category.getDescription());
         categoryDto.setCategoryType(category.getCategoryType());
+        categoryDto.setAttachmentId(category.getAttachmentId());
         return categoryDto;
     }
 
