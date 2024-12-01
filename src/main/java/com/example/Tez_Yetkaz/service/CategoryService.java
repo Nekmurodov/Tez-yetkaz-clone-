@@ -1,10 +1,12 @@
 package com.example.Tez_Yetkaz.service;
 
 import com.example.Tez_Yetkaz.dto.category.CreateCategoryDto;
+import com.example.Tez_Yetkaz.entity.fr.Attachment;
 import com.example.Tez_Yetkaz.entity.fr.Category;
 import com.example.Tez_Yetkaz.enums.CategoryType;
 import com.example.Tez_Yetkaz.exception.NotFoundException;
 import com.example.Tez_Yetkaz.mapper.CategoryMapper;
+import com.example.Tez_Yetkaz.repository.AttachmentRepository;
 import com.example.Tez_Yetkaz.repository.CategoryRepository;
 import com.example.Tez_Yetkaz.response.ResponseData;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +22,16 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
+    private final AttachmentRepository attachmentRepository;
+    private final FileService fileService;
 
     public ResponseData<?> create(CreateCategoryDto createCategoryDto) {
+        Optional<Attachment> attachment = this.attachmentRepository.findById(createCategoryDto.getAttachmentId());
+        if (attachment.isEmpty()){
+            throw new NotFoundException("Attachment not found");
+        }
         Category category = this.categoryMapper.toEntity(createCategoryDto);
+        category.setAttachmentId(attachment.get().getId());
         this.categoryRepository.save(category);
         return ResponseData.successResponse(this.categoryMapper.toDto(category));
     }
@@ -32,7 +41,17 @@ public class CategoryService {
         if (categoryOptional.isEmpty()) {
             throw new NotFoundException("Category not found");
         }
+        Optional<Attachment> attachment = this.attachmentRepository.findById(createCategoryDto.getAttachmentId());
+        if (attachment.isEmpty()){
+            throw new NotFoundException("Attachment not found");
+        }
         Category category = this.categoryMapper.toEntity(createCategoryDto);
+        if (categoryOptional.get().getAttachmentId() == null) {
+            category.setAttachmentId(createCategoryDto.getAttachmentId());
+        }
+        else if (createCategoryDto.getAttachmentId() !=null && fileService.deleteFile(categoryOptional.get().getAttachmentId())){
+            category.setAttachmentId(createCategoryDto.getAttachmentId());
+        }
         categoryRepository.save(category);
         return null;
     }

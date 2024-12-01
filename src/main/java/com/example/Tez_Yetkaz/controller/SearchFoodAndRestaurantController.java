@@ -3,10 +3,7 @@ package com.example.Tez_Yetkaz.controller;
 import com.example.Tez_Yetkaz.response.ResponseData;
 import com.example.Tez_Yetkaz.service.SearchFoodAndRestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,13 +12,13 @@ public class SearchFoodAndRestaurantController {
 
     private final SearchFoodAndRestaurantService searchFoodAndRestaurantService;
 
-    @GetMapping("get/{foodName}")
-    public ResponseData<?> searchFood(@PathVariable String foodName) {
+    @GetMapping("get-food")
+    public ResponseData<?> searchFood(@RequestParam String foodName) {
         return this.searchFoodAndRestaurantService.searchFoodByName(foodName);
     }
 
-    @GetMapping("get/{restaurantName}")
-    public ResponseData<?> searchRestaurant(@PathVariable String restaurantName) {
+    @GetMapping("get-restaurant")
+    public ResponseData<?> searchRestaurant(@RequestParam String restaurantName) {
         return this.searchFoodAndRestaurantService.searchRestaurantByName(restaurantName);
     }
 

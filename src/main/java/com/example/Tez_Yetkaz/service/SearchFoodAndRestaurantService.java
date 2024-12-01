@@ -22,7 +22,7 @@ public class SearchFoodAndRestaurantService {
     private final RestaurantMapper restaurantMapper;
 
     public ResponseData<?> searchFoodByName(String name) {
-        List<Food> foods = this.foodRepository.findAllByNameLikeIgnoreCase(name);
+        List<Food> foods = this.foodRepository.findByNameContainingIgnoreCase(name);
         if (foods.isEmpty()) {
             return ResponseData.successResponse("No food found");
         }
@@ -30,7 +30,7 @@ public class SearchFoodAndRestaurantService {
     }
 
     public ResponseData<?> searchRestaurantByName(String name) {
-        List<Restaurant> restaurants = this.restaurantRepository.findAllByNameLikeIgnoreCase(name);
+        List<Restaurant> restaurants = this.restaurantRepository.findByNameContainingIgnoreCase(name);
         if (restaurants.isEmpty()) {
             return ResponseData.successResponse("No restaurant found");
         }
