@@ -40,6 +40,7 @@ public class RestaurantMapper {
 //        restaurantDto.setFood(this.foodMapper.toDto(restaurant.getFood()));
         restaurantDto.setDeliverAmount(restaurant.getDeliverAmount());
         restaurantDto.setAttachmentId(restaurant.getAttachment());
+        restaurantDto.setUploadPath("http://localhost:8080/api/v1/files/file-show/"+restaurant.getAttachment());
         return restaurantDto;
     }
 

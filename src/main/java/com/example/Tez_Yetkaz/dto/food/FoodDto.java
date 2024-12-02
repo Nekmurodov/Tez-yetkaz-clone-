@@ -22,6 +22,7 @@ public class FoodDto {
     private UUID restaurantId;
 
     private UUID attachmentId;
+    private String uploadPath;
 
     private Category category;
 }

@@ -32,6 +32,7 @@ public class FoodMapper {
         foodDto.setCategory(food.getCategory());
         foodDto.setRestaurantId(food.getRestaurant().getId());
         foodDto.setAttachmentId(food.getAttachment());
+        foodDto.setUploadPath("http://localhost:8080/api/v1/files/file-show/"+food.getAttachment());
         return foodDto;
     }
 
