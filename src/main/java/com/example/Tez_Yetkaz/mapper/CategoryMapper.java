@@ -28,6 +28,7 @@ public class CategoryMapper {
         categoryDto.setDescription(category.getDescription());
         categoryDto.setCategoryType(category.getCategoryType());
         categoryDto.setAttachmentId(category.getAttachmentId());
+        categoryDto.setUploadPath("http://localhost:8080/api/v1/files/file-show/"+category.getAttachmentId());
         return categoryDto;
     }
 

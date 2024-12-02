@@ -19,6 +19,7 @@ public class CategoryDto {
     private String description;
 
     private UUID attachmentId;
+    private String uploadPath;
 
     private CategoryType categoryType;
 }

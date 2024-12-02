@@ -3,6 +3,7 @@ package com.example.Tez_Yetkaz.controller;
 import com.example.Tez_Yetkaz.dto.auth.UserCreateDto;
 import com.example.Tez_Yetkaz.response.ResponseData;
 import com.example.Tez_Yetkaz.service.UserService;
+import com.example.Tez_Yetkaz.util.GetUserIdFromToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 @RequestMapping("api/v1/user/")
 public class UserController {
     private final UserService userService;
+    private final GetUserIdFromToken getUserIdFromToken;
 
     @PutMapping("update/{userId}")
     public ResponseData<?> update(@PathVariable UUID userId, UserCreateDto userCreateDto) {
@@ -24,8 +26,14 @@ public class UserController {
         return this.userService.deleteUser(userId);
     }
 
-    @GetMapping("get/{userId}")
+    @GetMapping("/get/{userId}")
     public ResponseData<?> get(@PathVariable UUID userId) {
+        return this.userService.getUser(userId);
+    }
+
+    @GetMapping("/get")
+    public ResponseData<?> get() {
+        UUID userId = getUserIdFromToken.getUserIdFromToken();
         return this.userService.getUser(userId);
     }
 

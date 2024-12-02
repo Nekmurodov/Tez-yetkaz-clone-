@@ -38,6 +38,7 @@ public class SecurityConfig  {
                                 "api/v1/food/get-all",
                                 "api/v1/food/get-all-by-category/{categoryId}",
                                 "api/v1/food/get-all-by-restaurant/{restaurantId}",
+                                "api/v1/files/file-show/{fileId}",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
