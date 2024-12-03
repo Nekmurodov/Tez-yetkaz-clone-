@@ -1,11 +1,10 @@
 package com.example.Tez_Yetkaz.dto.category;
 
-import jakarta.validation.constraints.NotNull;
+import com.example.Tez_Yetkaz.enums.CategoryType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.checkerframework.common.aliasing.qual.Unique;
 
 import java.util.UUID;
 
@@ -13,14 +12,15 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCategoryDto {
+public class CategoryDtoForFood {
 
-    @NotNull
-    @Unique
+    private UUID id;
     private String name;
     private String description;
 
     private UUID attachmentId;
+    private UUID restaurantId;
+    private String uploadPath;
 
-
+    private CategoryType categoryType;
 }

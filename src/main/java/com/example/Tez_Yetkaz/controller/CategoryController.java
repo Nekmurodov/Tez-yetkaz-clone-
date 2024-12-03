@@ -1,6 +1,7 @@
 package com.example.Tez_Yetkaz.controller;
 
 import com.example.Tez_Yetkaz.dto.category.CreateCategoryDto;
+import com.example.Tez_Yetkaz.dto.category.CreateCategoryDtoForFood;
 import com.example.Tez_Yetkaz.response.ResponseData;
 import com.example.Tez_Yetkaz.service.CategoryService;
 import jakarta.validation.Valid;
@@ -16,19 +17,34 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping("/create")
-    public ResponseData<?> creat(@RequestBody @Valid CreateCategoryDto createCategoryDto) {
-        return this.categoryService.create(createCategoryDto);
+    @PostMapping("/create-for-restaurant")
+    public ResponseData<?> creatForRestaurant(@RequestBody @Valid CreateCategoryDto createCategoryDto) {
+        return this.categoryService.createForRestaurant(createCategoryDto);
     }
 
-    @PutMapping("update/{categoryId}")
-    public ResponseData<?> update(@PathVariable UUID categoryId, @Valid CreateCategoryDto createCategoryDto) {
-        return this.categoryService.update(categoryId, createCategoryDto);
+    @PostMapping("/create-for-restaurant-food")
+    public ResponseData<?> creatForRestaurantFood(@RequestBody @Valid CreateCategoryDtoForFood createCategoryDto) {
+        return this.categoryService.createForRestaurantFood(createCategoryDto);
+    }
+
+    @PutMapping("update-for-restaurant/{categoryId}")
+    public ResponseData<?> updateForRestaurant(@PathVariable UUID categoryId, @Valid CreateCategoryDto createCategoryDto) {
+        return this.categoryService.updateForRestaurant(categoryId, createCategoryDto);
+    }
+
+    @PutMapping("update-for-restaurant-food/{categoryId}")
+    public ResponseData<?> updateForFood(@PathVariable UUID categoryId, @Valid CreateCategoryDtoForFood createCategoryDto) {
+        return this.categoryService.updateForFood(categoryId, createCategoryDto);
     }
 
     @GetMapping("get/{categoryId}")
     public ResponseData<?> get(@PathVariable UUID categoryId) {
         return this.categoryService.get(categoryId);
+    }
+
+    @GetMapping("get-all-for-restaurant/{restaurantId}")
+    public ResponseData<?> getAllByRestaurantId(@PathVariable UUID restaurantId) {
+        return this.categoryService.getAllByRestaurantId(restaurantId);
     }
 
     @GetMapping("/get-all")

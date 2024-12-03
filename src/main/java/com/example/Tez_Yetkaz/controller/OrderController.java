@@ -41,6 +41,12 @@ public class OrderController {
         return this.orderService.getAll(page,size);
     }
 
+    @GetMapping("/get-all-user-orders")
+    public ResponseData<?> getAllUserOrders(@RequestParam(defaultValue = "0") int page,
+                                            @RequestParam(defaultValue = "10") int size) {
+        return this.orderService.getAllUserOrders(page,size);
+    }
+
     @GetMapping("/get-all-by-status")
     public ResponseData<?> getAllByStatus(@RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size) {

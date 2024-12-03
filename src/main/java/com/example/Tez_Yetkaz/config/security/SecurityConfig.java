@@ -32,13 +32,21 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 "api/v1/auth/**",
+                                "api/v1/category/get/{categoryId}",
                                 "api/v1/category/get-all",
+                                "api/v1/category/get-all-by-food",
+                                "api/v1/category/get-all-by-restaurant",
+                                "api/v1/category/get-all-for-restaurant/{restaurantId}",
+                                "api/v1/role/get/{roleId}",
                                 "api/v1/restaurant/get-all",
                                 "api/v1/restaurant/get-all-by-category/{categoryId}",
+                                "api/v1/food/get/{foodId}",
                                 "api/v1/food/get-all",
                                 "api/v1/food/get-all-by-category/{categoryId}",
                                 "api/v1/food/get-all-by-restaurant/{restaurantId}",
                                 "api/v1/files/file-show/{fileId}",
+                                "api/v1/order/get-all",
+                                "api/v1/search-food-and-restaurant/**",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -50,10 +58,10 @@ public class SecurityConfig  {
                                 "/webjars/**",
                                 "/swagger-ui.html")
                         .permitAll()
-                        .requestMatchers("api/v1/admin/**").hasAnyRole(ADMIN.name())
-//                        .requestMatchers("api/v1/category/**").hasAnyRole(USER.name(), ADMIN.name())
-//                        .requestMatchers("api/v1/finance/**").hasAnyRole(USER.name())
-                        .requestMatchers("api/v1/user/**").hasAnyRole(USER.name())
+//                        .requestMatchers("api/v1/admin/**").hasAnyRole(ADMIN.name())
+////                        .requestMatchers("api/v1/category/**").hasAnyRole(USER.name(), ADMIN.name())
+////                        .requestMatchers("api/v1/finance/**").hasAnyRole(USER.name())
+//                        .requestMatchers("api/v1/user/**").hasAnyRole(USER.name())
                         .anyRequest()
                         .authenticated()
                 )
