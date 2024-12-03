@@ -13,7 +13,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCategoryDto {
+public class CreateCategoryDtoForFood {
 
     @NotNull
     @Unique
@@ -21,6 +21,6 @@ public class CreateCategoryDto {
     private String description;
 
     private UUID attachmentId;
-
+    private UUID restaurantId;
 
 }

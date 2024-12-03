@@ -14,6 +14,7 @@ public interface CategoryRepository extends JpaRepository<Category, UUID> {
     boolean existsByIdAndDeletedFalse(UUID id);
     Optional<Category> findByIdAndDeletedFalse(UUID id);
     List<Category> findAllByDeletedFalse();
+    List<Category> findAllByRestaurantIdAndDeletedFalse(UUID restaurantId);
     Optional<Category> findByIdAndDeletedFalseAndCategoryType(UUID id, CategoryType categoryType);
     List<Category> findAllByDeletedFalseAndCategoryType(CategoryType categoryType);
 }

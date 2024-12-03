@@ -22,6 +22,7 @@ public class Category extends AbsEntity {
     private String description;
 
     private UUID attachmentId;
+    private UUID restaurantId;
 
     @Enumerated(EnumType.STRING)
     private CategoryType categoryType;
