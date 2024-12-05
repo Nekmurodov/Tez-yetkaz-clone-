@@ -7,6 +7,7 @@ import com.example.Tez_Yetkaz.dto.email.OTPVerificationRequest;
 import com.example.Tez_Yetkaz.response.ResponseData;
 import com.example.Tez_Yetkaz.service.email.AuthService;
 import com.example.Tez_Yetkaz.service.email.AuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,11 @@ public class AuthController {
     @PostMapping("/registration")
     public ResponseData<?> registerUser(@RequestBody UserCreateDto userCreateDto) {
         return this.authService.registerUser(userCreateDto);
+    }
+
+    @PostMapping("sending-otp/{email}")
+    public ResponseData<?> sendingOTP(@Valid @PathVariable String email){
+        return authService.sendingOTP(email);
     }
 
     @PostMapping("/verification")

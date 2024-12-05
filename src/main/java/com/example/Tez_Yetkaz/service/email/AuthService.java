@@ -40,6 +40,15 @@ public class AuthService {
         return ResponseData.successResponse(authMapper.toDto(user));
     }
 
+    public ResponseData<?> sendingOTP(String email) {
+        boolean exists = this.userRepository.existsByEmailAndDeletedFalse(email);
+        if (!exists) {
+            throw new NotFoundException("Email not found!");
+        }
+        sendingGeneratedOTP(email);
+        return ResponseData.successResponse("Sending OTP successfully!");
+    }
+
     public ResponseData<?> verificationOTP(OTPVerificationRequest otpVerificationRequest) {
         if (!validateOTP(otpVerificationRequest.getEmail(), otpVerificationRequest.getOtp())) {
             return new ResponseData<>("OTP verification failed!", false);
