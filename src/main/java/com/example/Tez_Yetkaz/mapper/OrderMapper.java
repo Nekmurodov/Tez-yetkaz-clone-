@@ -73,7 +73,7 @@ public class OrderMapper {
     }
 
     public FoodForOrder toEntityFood(FoodForOrderDto foodForOrderDto){
-        Optional<Food> optionalFood = this.foodRepository.findById(foodForOrderDto.getFoodId());
+        Optional<Food> optionalFood = this.foodRepository.findByIdAndDeletedFalse(foodForOrderDto.getFoodId());
         if (optionalFood.isEmpty()){
             throw new NoSuchElementException("No such food");
         }

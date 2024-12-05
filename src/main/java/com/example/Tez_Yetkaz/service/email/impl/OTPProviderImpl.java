@@ -32,7 +32,7 @@ public class OTPProviderImpl implements OtpProvider {
     @Override
     public Integer generatorOTP(String key) {
         Random random = new Random();
-        int otp = 100000 + random.nextInt(900000);
+        int otp = 1000 + random.nextInt(9000);
         otpCache.put(key, otp);
         return otp;
     }
