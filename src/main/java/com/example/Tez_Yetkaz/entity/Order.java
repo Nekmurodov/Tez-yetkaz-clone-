@@ -1,5 +1,6 @@
 package com.example.Tez_Yetkaz.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.*;
@@ -22,7 +23,7 @@ public class Order extends AbsEntity {
 
     private UUID userId;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<FoodForOrder> foods;
 
     private Double foodsAmount;

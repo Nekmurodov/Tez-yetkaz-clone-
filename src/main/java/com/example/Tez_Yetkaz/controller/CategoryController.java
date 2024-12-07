@@ -28,12 +28,12 @@ public class CategoryController {
     }
 
     @PutMapping("update-for-restaurant/{categoryId}")
-    public ResponseData<?> updateForRestaurant(@PathVariable UUID categoryId, @Valid CreateCategoryDto createCategoryDto) {
+    public ResponseData<?> updateForRestaurant(@PathVariable UUID categoryId, @RequestBody @Valid CreateCategoryDto createCategoryDto) {
         return this.categoryService.updateForRestaurant(categoryId, createCategoryDto);
     }
 
     @PutMapping("update-for-restaurant-food/{categoryId}")
-    public ResponseData<?> updateForFood(@PathVariable UUID categoryId, @Valid CreateCategoryDtoForFood createCategoryDto) {
+    public ResponseData<?> updateForFood(@PathVariable UUID categoryId, @RequestBody @Valid CreateCategoryDtoForFood createCategoryDto) {
         return this.categoryService.updateForFood(categoryId, createCategoryDto);
     }
 
