@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.checkerframework.common.aliasing.qual.Unique;
 
 import java.util.UUID;
 
@@ -16,7 +15,6 @@ import java.util.UUID;
 public class CreateCategoryDtoForFood {
 
     @NotNull
-    @Unique
     private String name;
     private String description;
 
