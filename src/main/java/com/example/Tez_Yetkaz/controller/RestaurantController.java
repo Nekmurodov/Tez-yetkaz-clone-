@@ -21,8 +21,7 @@ public class RestaurantController {
     }
 
     @PutMapping(value = "update/{restaurantId}")
-    public ResponseData<?> update( @PathVariable UUID restaurantId,
-                                   @RequestPart("data") CreateRestaurantDto createRestaurantDto) {
+    public ResponseData<?> update( @PathVariable UUID restaurantId, @RequestBody CreateRestaurantDto createRestaurantDto) {
         return this.restaurantService.update(restaurantId, createRestaurantDto);
     }
 

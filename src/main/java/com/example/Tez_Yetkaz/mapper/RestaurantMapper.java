@@ -36,7 +36,7 @@ public class RestaurantMapper {
 //        restaurantDto.setPhone(restaurant.getPhone());
         restaurantDto.setCloseTime(restaurant.getCloseTime());
         restaurantDto.setOpenTime(restaurant.getOpenTime());
-//        restaurantDto.setCategory(restaurant.getCategory());
+        restaurantDto.setCategoryId(restaurant.getCategory().getId());
 //        restaurantDto.setFood(this.foodMapper.toDto(restaurant.getFood()));
         restaurantDto.setDeliverAmount(restaurant.getDeliverAmount());
         restaurantDto.setAttachmentId(restaurant.getAttachment());
@@ -45,10 +45,8 @@ public class RestaurantMapper {
     }
 
     public Restaurant toUpdateEntity(Restaurant restaurant, CreateRestaurantDto restaurantDto) {
-        if (restaurantDto.getName() != null) {
-            restaurant.setName(restaurantDto.getName());
-        }
-//        if (restaurantDto.getAddress() != null) {
+        restaurant.setName(restaurantDto.getName());
+        //        if (restaurantDto.getAddress() != null) {
 //            restaurant.setAddress(restaurantDto.getAddress());
 //        }
         restaurant.setActive(restaurantDto.isActive());

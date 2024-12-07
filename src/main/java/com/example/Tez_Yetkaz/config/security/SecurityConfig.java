@@ -39,6 +39,7 @@ public class SecurityConfig  {
                                 "api/v1/category/get-all-for-restaurant/{restaurantId}",
                                 "api/v1/role/get/{roleId}",
                                 "api/v1/restaurant/get-all",
+                                "api/v1/restaurant/get/{restaurantId}",
                                 "api/v1/restaurant/get-all-by-category/{categoryId}",
                                 "api/v1/food/get/{foodId}",
                                 "api/v1/food/get-all",

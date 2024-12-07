@@ -23,6 +23,7 @@ public class RestaurantDto {
     private Double deliverAmount;
 
     private UUID attachmentId;
+    private UUID categoryId;
     private String uploadPath;
 
 

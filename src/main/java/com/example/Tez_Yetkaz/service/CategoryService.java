@@ -46,10 +46,6 @@ public class CategoryService {
     }
 
     public ResponseData<?> createForRestaurantFood(CreateCategoryDtoForFood createCategoryDto) {
-        Optional<Attachment> attachment = this.attachmentRepository.findById(createCategoryDto.getAttachmentId());
-        if (attachment.isEmpty()){
-            throw new NotFoundException("Attachment not found!");
-        }
         boolean exists = this.restaurantRepository.existsByIdAndDeletedFalse(createCategoryDto.getRestaurantId());
         if (!exists){
             throw new NotFoundException("Restaurant not found!");
@@ -61,7 +57,6 @@ public class CategoryService {
             throw new AlreadyExistException("Category already exists");
         }
         Category category = this.categoryMapper.toEntityForFood(createCategoryDto);
-        category.setAttachmentId(attachment.get().getId());
         this.categoryRepository.save(category);
         return ResponseData.successResponse(this.categoryMapper.toDtoForFood(category));
     }
@@ -71,17 +66,7 @@ public class CategoryService {
         if (categoryOptional.isEmpty()) {
             throw new NotFoundException("Category not found!");
         }
-        Optional<Attachment> attachment = this.attachmentRepository.findById(createCategoryDto.getAttachmentId());
-        if (attachment.isEmpty()){
-            throw new NotFoundException("Attachment not found");
-        }
         Category category = this.categoryMapper.toEntityForFood(createCategoryDto);
-        if (categoryOptional.get().getAttachmentId() == null) {
-            category.setAttachmentId(createCategoryDto.getAttachmentId());
-        }
-        else if (createCategoryDto.getAttachmentId() !=null && fileService.deleteFile(categoryOptional.get().getAttachmentId())){
-            category.setAttachmentId(createCategoryDto.getAttachmentId());
-        }
         categoryRepository.save(category);
         return ResponseData.successResponse(this.categoryMapper.toDtoForFood(category));
     }
