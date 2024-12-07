@@ -6,31 +6,45 @@ import com.example.Tez_Yetkaz.dto.order.OrderDto;
 import com.example.Tez_Yetkaz.entity.FoodForOrder;
 import com.example.Tez_Yetkaz.entity.Order;
 import com.example.Tez_Yetkaz.entity.fr.Food;
+import com.example.Tez_Yetkaz.exception.NotFoundException;
 import com.example.Tez_Yetkaz.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
 public class OrderMapper {
 
-    private FoodRepository foodRepository;
+    private final FoodRepository foodRepository;
 
     public Order toEntity(CreateOrderDto createOrderDto){
         Order order = new Order();
         order.setDescription(createOrderDto.getDescription());
-        order.setFoods(toEntityFood(createOrderDto.getFoods()));
-        order.setDeliver(false);
         order.setLocation(createOrderDto.getLocation());
         order.setStatus(true);
+        order.setDeliver(false);
         order.setFoodsAmount(createOrderDto.getFoodsAmount());
         order.setDeliverAmount(createOrderDto.getDeliverAmount());
         order.setAllAmount(createOrderDto.getAllAmount());
+
+        List<FoodForOrder> foods = new ArrayList<>();
+        for (FoodForOrderDto foodDto : createOrderDto.getFoods()) {
+            Optional<Food> foodOptional = this.foodRepository.findByIdAndDeletedFalse(foodDto.getFoodId());
+            if (foodOptional.isEmpty()) {
+                throw new NotFoundException("Food not found: " + foodDto.getFoodId());
+            }
+
+            FoodForOrder foodForOrder = new FoodForOrder();
+            foodForOrder.setFood(foodOptional.get());
+            foodForOrder.setCount(foodDto.getCount());
+            foods.add(foodForOrder);
+        }
+
+        order.setFoods(foods);
         return order;
     }
 
@@ -72,23 +86,23 @@ public class OrderMapper {
         return foodForOrderDto;
     }
 
-    public FoodForOrder toEntityFood(FoodForOrderDto foodForOrderDto){
-        Optional<Food> optionalFood = this.foodRepository.findByIdAndDeletedFalse(foodForOrderDto.getFoodId());
-        if (optionalFood.isEmpty()){
-            throw new NoSuchElementException("No such food");
-        }
-        FoodForOrder foodForOrder = new FoodForOrder();
-        foodForOrder.setFood(optionalFood.get());
-        foodForOrder.setCount(foodForOrderDto.getCount());
-        return foodForOrder;
-    }
+//    public FoodForOrder toEntityFood(FoodForOrderDto foodForOrderDto){
+//        Optional<Food> optionalFood = this.foodRepository.findByIdAndDeletedFalse(foodForOrderDto.getFoodId());
+//        if (optionalFood.isEmpty()){
+//            throw new NotFoundException("Not found food");
+//        }
+//        FoodForOrder foodForOrder = new FoodForOrder();
+//        foodForOrder.setFood(optionalFood.get());
+//        foodForOrder.setCount(foodForOrderDto.getCount());
+//        return foodForOrder;
+//    }
 
-    public List<FoodForOrder> toEntityFood(List<FoodForOrderDto> foods){
-        List<FoodForOrder> foodForOrder = new ArrayList<>();
-        for (FoodForOrderDto foodForOrderDto : foods) {
-            foodForOrder.add(toEntityFood(foodForOrderDto));
-        }
-        return foodForOrder;
-    }
+//    public List<FoodForOrder> toEntityFood(List<FoodForOrderDto> foods){
+//        List<FoodForOrder> foodForOrder = new ArrayList<>();
+//        for (FoodForOrderDto foodForOrderDto : foods) {
+//            foodForOrder.add(toEntityFood(foodForOrderDto));
+//        }
+//        return foodForOrder;
+//    }
 
 }
