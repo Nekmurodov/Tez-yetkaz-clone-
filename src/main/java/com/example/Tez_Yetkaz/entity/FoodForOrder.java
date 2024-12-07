@@ -2,7 +2,7 @@ package com.example.Tez_Yetkaz.entity;
 
 import com.example.Tez_Yetkaz.entity.fr.Food;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 
@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class FoodForOrder extends AbsEntity{
-    @OneToOne
+    @ManyToOne
     private Food food;
     private int count;
 }

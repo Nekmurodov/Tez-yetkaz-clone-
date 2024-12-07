@@ -60,6 +60,9 @@ public class OrderMapper {
         orderDto.setFoodsAmount(order.getFoodsAmount());
         orderDto.setDeliverAmount(order.getDeliverAmount());
         orderDto.setAllAmount(order.getAllAmount());
+        orderDto.setRestaurantName(order.getFoods().getFirst().getFood().getRestaurant().getName());
+        orderDto.setAttachmentId(order.getFoods().getFirst().getFood().getAttachment());
+        orderDto.setUploadPath("http://localhost:8080/api/v1/files/file-show/"+order.getFoods().getFirst().getFood().getAttachment());
         return orderDto;
     }
 

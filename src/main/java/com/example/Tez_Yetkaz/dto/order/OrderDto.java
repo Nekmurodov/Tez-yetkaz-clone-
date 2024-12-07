@@ -28,4 +28,8 @@ public class OrderDto {
     private Double deliverAmount;
     private Double allAmount;
 
+    private String restaurantName;
+    private String uploadPath;
+    private UUID attachmentId;
+
 }

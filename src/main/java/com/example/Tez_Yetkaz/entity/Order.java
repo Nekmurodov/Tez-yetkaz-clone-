@@ -2,7 +2,7 @@ package com.example.Tez_Yetkaz.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import lombok.*;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class Order extends AbsEntity {
 
     private UUID userId;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<FoodForOrder> foods;
 
     private Double foodsAmount;
