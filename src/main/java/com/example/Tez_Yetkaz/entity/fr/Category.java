@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.*;
-import org.checkerframework.common.aliasing.qual.Unique;
 
 import java.util.UUID;
 
@@ -17,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 public class Category extends AbsEntity {
-    @Unique
+    @NonNull
     private String name;
     private String description;
 

@@ -5,6 +5,7 @@ import com.example.Tez_Yetkaz.dto.category.CreateCategoryDtoForFood;
 import com.example.Tez_Yetkaz.entity.fr.Attachment;
 import com.example.Tez_Yetkaz.entity.fr.Category;
 import com.example.Tez_Yetkaz.enums.CategoryType;
+import com.example.Tez_Yetkaz.exception.AlreadyExistException;
 import com.example.Tez_Yetkaz.exception.NotFoundException;
 import com.example.Tez_Yetkaz.mapper.CategoryMapper;
 import com.example.Tez_Yetkaz.repository.AttachmentRepository;
@@ -33,6 +34,11 @@ public class CategoryService {
         if (attachment.isEmpty()){
             throw new NotFoundException("Attachment not found");
         }
+        boolean exists = this.categoryRepository.
+                existsByNameAndDeletedFalseAndCategoryType(createCategoryDto.getName(), CategoryType.RESTAURANT);
+        if (exists){
+            throw new AlreadyExistException("Category already exists");
+        }
         Category category = this.categoryMapper.toEntity(createCategoryDto);
         category.setAttachmentId(attachment.get().getId());
         this.categoryRepository.save(category);
@@ -47,6 +53,12 @@ public class CategoryService {
         boolean exists = this.restaurantRepository.existsByIdAndDeletedFalse(createCategoryDto.getRestaurantId());
         if (!exists){
             throw new NotFoundException("Restaurant not found!");
+        }
+        boolean existsCategory = this.categoryRepository.
+                existsByNameAndDeletedFalseAndRestaurantId
+                        (createCategoryDto.getName(), createCategoryDto.getRestaurantId());
+        if (existsCategory){
+            throw new AlreadyExistException("Category already exists");
         }
         Category category = this.categoryMapper.toEntityForFood(createCategoryDto);
         category.setAttachmentId(attachment.get().getId());
