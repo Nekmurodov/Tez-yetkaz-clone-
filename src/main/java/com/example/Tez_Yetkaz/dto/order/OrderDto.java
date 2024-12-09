@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,5 +33,8 @@ public class OrderDto {
     private String restaurantName;
     private String uploadPath;
     private UUID attachmentId;
+
+    private Timestamp createdAtOrder;
+    private Timestamp updatedAtOrder;
 
 }

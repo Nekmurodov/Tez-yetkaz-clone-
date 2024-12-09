@@ -110,9 +110,10 @@ public class OrderService {
 
     public ResponseData<?> getAllByDeliver(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Order> order = this.orderRepository.findAllByDeletedFalseAndDeliverFalse(pageable);
+        Page<Order> order = this.orderRepository.
+                findAllByDeletedFalseAndDeliverFalseAndUserIdAndStatusTrue(pageable, userSession.getUser().getId());
         if (order.isEmpty()){
-            throw new NotFoundException("Order not found!");
+            throw new NotFoundException("User's orders not found!");
         }
 
         Map<String, Object> response = new HashMap<>();
