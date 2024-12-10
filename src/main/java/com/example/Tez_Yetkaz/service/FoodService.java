@@ -5,6 +5,7 @@ import com.example.Tez_Yetkaz.entity.fr.Category;
 import com.example.Tez_Yetkaz.entity.fr.Food;
 import com.example.Tez_Yetkaz.entity.fr.Restaurant;
 import com.example.Tez_Yetkaz.enums.CategoryType;
+import com.example.Tez_Yetkaz.exception.AlreadyExistException;
 import com.example.Tez_Yetkaz.exception.NotFoundException;
 import com.example.Tez_Yetkaz.mapper.FoodMapper;
 import com.example.Tez_Yetkaz.repository.AttachmentRepository;
@@ -42,6 +43,9 @@ public class FoodService {
         Optional<Restaurant> restaurant = this.restaurantRepository.findByIdAndDeletedFalse(createFoodDto.getRestaurantId());
         if (restaurant.isEmpty()){
             throw new NotFoundException("Restaurant not found");
+        }
+        if (category.get().getRestaurantId()!=restaurant.get().getId()){
+            throw new AlreadyExistException("This category is already used for another restaurant");
         }
         boolean attachment = this.attachmentRepository.existsById(createFoodDto.getAttachmentId());
         if (!attachment){
