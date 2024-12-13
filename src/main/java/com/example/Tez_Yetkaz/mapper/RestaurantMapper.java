@@ -2,12 +2,14 @@ package com.example.Tez_Yetkaz.mapper;
 
 import com.example.Tez_Yetkaz.dto.restaurant.CreateRestaurantDto;
 import com.example.Tez_Yetkaz.dto.restaurant.RestaurantDto;
+import com.example.Tez_Yetkaz.entity.fr.Category;
 import com.example.Tez_Yetkaz.entity.fr.Restaurant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -36,8 +38,8 @@ public class RestaurantMapper {
 //        restaurantDto.setPhone(restaurant.getPhone());
         restaurantDto.setCloseTime(restaurant.getCloseTime());
         restaurantDto.setOpenTime(restaurant.getOpenTime());
-        restaurantDto.setCategoryId(restaurant.getCategory().getId());
-//        restaurantDto.setFood(this.foodMapper.toDto(restaurant.getFood()));
+        restaurantDto.setCategoryNames(restaurant.getCategory().stream()
+                .map(Category::getName).collect(Collectors.toList()));
         restaurantDto.setDeliverAmount(restaurant.getDeliverAmount());
         restaurantDto.setAttachmentId(restaurant.getAttachment());
         restaurantDto.setUploadPath("http://localhost:8080/api/v1/files/file-show/"+restaurant.getAttachment());

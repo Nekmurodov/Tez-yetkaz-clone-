@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,7 +30,7 @@ public class Restaurant extends AbsEntity {
 //    @OneToMany(mappedBy = "restaurant")
 //    private List<Food> food;
 
-    @ManyToOne(optional = false)
-    private Category category;
+    @ManyToMany
+    private List<Category> category;
 
 }

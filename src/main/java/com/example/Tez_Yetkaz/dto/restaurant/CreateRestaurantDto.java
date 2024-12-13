@@ -3,6 +3,7 @@ package com.example.Tez_Yetkaz.dto.restaurant;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -24,5 +25,5 @@ public class CreateRestaurantDto {
     private UUID attachmentId;
 
     @NonNull
-    private UUID categoryId;
+    private List<UUID> categoryId;
 }

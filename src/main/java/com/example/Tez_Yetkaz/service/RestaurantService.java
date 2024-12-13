@@ -17,10 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -33,17 +30,9 @@ public class RestaurantService {
     private final FileService fileService;
 
     public ResponseData<?> create(CreateRestaurantDto createRestaurantDto){
-        Optional<Category> category = categoryRepository.
-                findByIdAndDeletedFalseAndCategoryType(createRestaurantDto.getCategoryId(), CategoryType.RESTAURANT);
-        if (category.isEmpty()){
-            throw new NotFoundException("Category not found");
-        }
-        Optional<Attachment> attachment = this.attachmentRepository.findById(createRestaurantDto.getAttachmentId());
-        if (attachment.isEmpty()){
-            throw new NotFoundException("Attachment not found");
-        }
+        findCategory(createRestaurantDto);
         Restaurant restaurant = this.restaurantMapper.toEntity(createRestaurantDto);
-        restaurant.setCategory(category.get());
+        restaurant.setCategory(findCategory(createRestaurantDto));
         restaurant.setAttachment(createRestaurantDto.getAttachmentId());
         this.restaurantRepository.save(restaurant);
         return ResponseData.successResponse(this.restaurantMapper.toDto(restaurant));
@@ -54,17 +43,9 @@ public class RestaurantService {
         if (restaurantOptional.isEmpty()){
             throw new NotFoundException("Restaurant not found");
         }
-        Optional<Category> category = categoryRepository.
-                findByIdAndDeletedFalseAndCategoryType(createRestaurantDto.getCategoryId(), CategoryType.RESTAURANT);
-        if (category.isEmpty()){
-            throw new NotFoundException("Category not found!");
-        }
-        Optional<Attachment> attachment = this.attachmentRepository.findById(createRestaurantDto.getAttachmentId());
-        if (attachment.isEmpty()){
-            throw new NotFoundException("Attachment not found");
-        }
+        findCategory(createRestaurantDto);
         Restaurant restaurant = this.restaurantMapper.toUpdateEntity(restaurantOptional.get(), createRestaurantDto);
-        restaurant.setCategory(category.get());
+        restaurant.setCategory(findCategory(createRestaurantDto));
         if (restaurantOptional.get().getAttachment() == null) {
             restaurant.setAttachment(createRestaurantDto.getAttachmentId());
         }
@@ -74,6 +55,23 @@ public class RestaurantService {
         this.restaurantRepository.save(restaurant);
 
         return ResponseData.successResponse(this.restaurantMapper.toDto(restaurant));
+    }
+
+    private List<Category> findCategory(CreateRestaurantDto createRestaurantDto) {
+        List<Category> category = new ArrayList<>();
+        for (UUID uuid : createRestaurantDto.getCategoryId()){
+            Optional<Category> categoryOptional = categoryRepository.
+                    findByIdAndDeletedFalseAndCategoryType(uuid, CategoryType.RESTAURANT);
+            if (categoryOptional.isEmpty()){
+                throw new NotFoundException("Category not found: " + uuid);
+            }
+            category.add(categoryOptional.get());
+        }
+        Optional<Attachment> attachment = this.attachmentRepository.findById(createRestaurantDto.getAttachmentId());
+        if (attachment.isEmpty()){
+            throw new NotFoundException("Attachment not found");
+        }
+        return category;
     }
 
     public ResponseData<?> get(UUID restaurantId) {
