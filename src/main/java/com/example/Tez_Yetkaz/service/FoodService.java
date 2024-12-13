@@ -19,10 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +41,7 @@ public class FoodService {
         if (restaurant.isEmpty()){
             throw new NotFoundException("Restaurant not found");
         }
-        if (category.get().getRestaurantId()!=restaurant.get().getId()){
+        if (!Objects.equals(category.get().getRestaurantId().toString(), restaurant.get().getId().toString())){
             throw new AlreadyExistException("This category is already used for another restaurant");
         }
         boolean attachment = this.attachmentRepository.existsById(createFoodDto.getAttachmentId());
