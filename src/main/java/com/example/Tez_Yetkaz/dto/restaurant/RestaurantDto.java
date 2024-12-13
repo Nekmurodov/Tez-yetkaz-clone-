@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -23,7 +24,7 @@ public class RestaurantDto {
     private Double deliverAmount;
 
     private UUID attachmentId;
-    private UUID categoryId;
+    private List<String> categoryNames;
     private String uploadPath;
 
 
